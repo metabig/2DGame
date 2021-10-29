@@ -6,11 +6,18 @@
 #include "ShaderProgram.h"
 #include "TileMap.h"
 #include "Player.h"
+#include "Enviorment.h"
 
 
 // Scene contains all the entities of our game.
 // It is responsible for updating and render them.
 
+#define SCREEN_X 30
+#define SCREEN_Y 14
+
+
+#define INVERTED_PLAYER true
+#define UPRIGHT_PLAYER false
 
 class Scene
 {
@@ -19,12 +26,16 @@ public:
 	Scene();
 	~Scene();
 
+	void initSpecial();
 	void init();
 	void update(int deltaTime);
 	void render();
 
 private:
 	void initShaders();
+	void initSprites();
+
+	
 
 private:
 	TileMap *map;
@@ -33,6 +44,11 @@ private:
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;
+	Sprite* s;
+
+	Texture menu;
+
+	vector<Enviorment *> vecSprites;
 
 };
 

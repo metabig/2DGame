@@ -5,17 +5,7 @@
 #include "Game.h"
 
 
-#define SCREEN_X 30
-#define SCREEN_Y 14
 
-#define INIT_PLAYER_X_TILES 4
-#define INIT_PLAYER_Y_TILES 4
-
-#define SPRITE_2_X 5
-#define SPRITE_2_Y 5
-
-#define INVERTED_PLAYER true
-#define UPRIGHT_PLAYER false
 
 
 Scene::Scene()
@@ -35,9 +25,17 @@ Scene::~Scene()
 		delete player;
 }
 
+void Scene::initSpecial() {
+	initShaders();
+	menu.loadFromFile("images/menu.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	s = Sprite::createSprite(glm::ivec2(600, 400), glm::vec2(1.0, 1.0), &menu, &texProgram);
+}
 
 void Scene::init()
 {
+
+	
+
 	initShaders();
 	map = TileMap::createTileMap("levels/customlevel.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
 	player = new Player();
@@ -50,6 +48,9 @@ void Scene::init()
 	inverted_player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram, true);
 	inverted_player->setPosition(glm::vec2(map->getStartingX(INVERTED_PLAYER) * map->getTileSize(), map->getStartingY(INVERTED_PLAYER) * map->getTileSize()));
 	inverted_player->setTileMap(map);
+
+	initSprites();
+
 
 
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
@@ -74,8 +75,13 @@ void Scene::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	map->render();
+	s->render();
 	player->render();
 	inverted_player->render();
+	for each (Enviorment* e in vecSprites)
+	{
+		e->render();
+	}
 }
 
 void Scene::initShaders()
@@ -107,6 +113,25 @@ void Scene::initShaders()
 	vShader.free();
 	fShader.free();
 }
+
+void Scene::initSprites()
+{
+	vector<int> spriteInfo = map->getSpriteInfo();
+	for (size_t i = 0; i < spriteInfo.size(); i=i+3)
+	{
+		int x = spriteInfo[i];
+		int y = spriteInfo[i+1];
+		int type = spriteInfo[i+2];
+
+		Enviorment* env = new Enviorment();
+		env->init(glm::ivec2(x* map->getTileSize(), y* map->getTileSize()), texProgram, type);
+		vecSprites.push_back(env);
+		cout << "Created Sprite at: " << x << " " << y << " " << type << endl;
+	}
+
+}
+
+
 
 
 

@@ -8,6 +8,7 @@
 using namespace std;
 
 
+
 TileMap *TileMap::createTileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProgram &program)
 {
 	TileMap *map = new TileMap(levelFile, minCoords, program);
@@ -84,15 +85,9 @@ bool TileMap::loadLevel(const string &levelFile)
 		for (int i = 0; i<mapSize.x; i++)
 		{
 			fin >> tile_int;
-			if (tile_int<0) {
+			if (tile_int<0) {//Sprite Territory
 				map[j*mapSize.x + i] = 0;
-				if (tile_int == -1) {
-					setStartPosition(i, j, false);
-				}
-				else {
-					cout << "inverted: ";
-					setStartPosition(i, j, true);
-				}
+				setSpritePosition(i, j, tile_int);			
 
 			}
 			else {
@@ -153,6 +148,27 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 	glBufferData(GL_ARRAY_BUFFER, 24 * nTiles * sizeof(float), &vertices[0], GL_STATIC_DRAW);
 	posLocation = program.bindVertexAttribute("position", 2, 4*sizeof(float), 0);
 	texCoordLocation = program.bindVertexAttribute("texCoord", 2, 4*sizeof(float), (void *)(2*sizeof(float)));
+}
+
+void TileMap::setSpritePosition(int X, int Y, int SpriteType)
+{
+	switch (SpriteType) {
+	case SPRITE_MAINPLAYER:
+		setStartPosition(X, Y, false);
+		break;
+	case SPRITE_INVERTEDPLAYER:
+		setStartPosition(X, Y, true);
+		break;
+
+	default:
+		spriteinfo.push_back(X);
+		spriteinfo.push_back(Y);
+		spriteinfo.push_back(SpriteType);
+
+			
+	}
+	
+
 }
 
 // Collision tests for axis aligned bounding boxes.
@@ -272,6 +288,11 @@ int TileMap::getStartingY(bool inverted)
 	else {
 		return startingY;
 	}
+}
+
+vector<int> TileMap::getSpriteInfo()
+{
+	return spriteinfo;
 }
 
 
