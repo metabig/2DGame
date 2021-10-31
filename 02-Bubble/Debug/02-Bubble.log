@@ -1,0 +1,19 @@
+﻿  main.cpp
+c:\users\usuario\documents\github\2dgame\02-bubble\main.cpp(1): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  TileMap.cpp
+c:\users\usuario\documents\github\2dgame\02-bubble\tilemap.h(5): fatal error C1083: Cannot open include file: 'glm/glm.hpp': No such file or directory
+  Texture.cpp
+c:\users\usuario\documents\github\2dgame\02-bubble\texture.cpp(1): fatal error C1083: Cannot open include file: 'SOIL.h': No such file or directory
+  Sprite.cpp
+c:\users\usuario\documents\github\2dgame\02-bubble\sprite.cpp(1): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  ShaderProgram.cpp
+c:\users\usuario\documents\github\2dgame\02-bubble\shaderprogram.cpp(1): fatal error C1083: Cannot open include file: 'glm/gtc/type_ptr.hpp': No such file or directory
+  Shader.cpp
+c:\users\usuario\documents\github\2dgame\02-bubble\shader.h(6): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Scene.cpp
+c:\users\usuario\documents\github\2dgame\02-bubble\scene.cpp(3): fatal error C1083: Cannot open include file: 'glm/gtc/matrix_transform.hpp': No such file or directory
+  Player.cpp
+c:\users\usuario\documents\github\2dgame\02-bubble\player.cpp(3): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Game.cpp
+c:\users\usuario\documents\github\2dgame\02-bubble\game.cpp(1): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Generating Code...
