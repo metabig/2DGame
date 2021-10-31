@@ -6,7 +6,7 @@
 #include "ShaderProgram.h"
 #include "TileMap.h"
 #include "Player.h"
-#include "Enviorment.h"
+
 
 
 // Scene contains all the entities of our game.
@@ -30,24 +30,21 @@ public:
 	void update(int deltaTime);
 	void render();
 
-private:
+	ShaderProgram texProgram;
 	void initShaders();
 	void initSprites();
+private:
 
 	
 
 private:
-	TileMap *map;
-	Player *player;
-	Player *inverted_player;
-	ShaderProgram texProgram;
+
+
 	float currentTime;
 	glm::mat4 projection;
-	Sprite* background_sprite;
 
-	Texture background;
 
-	vector<Enviorment *> vecSprites;
+
 
 };
 

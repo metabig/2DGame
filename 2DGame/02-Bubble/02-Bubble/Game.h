@@ -3,7 +3,8 @@
 
 
 #include "Scene.h"
-
+#include "SplashScene.h"
+#include "LevelScene.h"
 
 #define SCREEN_WIDTH 30*64
 #define SCREEN_HEIGHT 14*64
@@ -44,7 +45,8 @@ public:
 
 private:
 	bool bPlay;                       // Continue to play game?
-	Scene scene;                      // Scene to render
+	LevelScene levelscene;                      // Scene to render
+	SplashScene splashscreen;				  // Splash Screen
 	bool keys[256], specialKeys[256]; // Store key states so that 
 	                                  // we can have access at any time
 
