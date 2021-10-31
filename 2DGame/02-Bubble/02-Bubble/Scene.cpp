@@ -27,8 +27,8 @@ Scene::~Scene()
 
 void Scene::initSpecial() {
 	initShaders();
-	menu.loadFromFile("images/menu.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	s = Sprite::createSprite(glm::ivec2(600, 400), glm::vec2(1.0, 1.0), &menu, &texProgram);
+	menu.loadFromFile("images/background.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	s = Sprite::createSprite(glm::ivec2(SCREEN_WIDTH, SCREEN_HEIGHT), glm::vec2(1.0, 1.0), &menu, &texProgram);
 }
 
 void Scene::init()
@@ -74,8 +74,8 @@ void Scene::render()
 	modelview = glm::mat4(1.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
-	map->render();
 	s->render();
+	map->render();
 	player->render();
 	inverted_player->render();
 	for each (Enviorment* e in vecSprites)
