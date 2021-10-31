@@ -1,0 +1,25 @@
+TILEMAP
+30    							-- Size of tile map in tiles
+64 64 							-- Tile size & block size
+images/Megatiled.png 	-- Tilesheet
+8 8 								-- Number of tiles in tilesheet
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+         3838       11  9        
+   2018171717171717171717171717171717171719       
+   43737373737373737373737372828282828283       
+   4653535353535353535353404848484847535345       
+             3938   54  56        
+              38               
+                              
+                              
+                              
+                              
+                              
+                              
