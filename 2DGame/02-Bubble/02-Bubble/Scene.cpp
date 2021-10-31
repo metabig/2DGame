@@ -4,12 +4,9 @@
 #include "Scene.h"
 #include "Game.h"
 
-
-
-
-
 Scene::Scene()
 {
+	background_sprite = NULL;
 	map = NULL;
 	player = NULL;
 	inverted_player = NULL;
@@ -17,6 +14,8 @@ Scene::Scene()
 
 Scene::~Scene()
 {
+	if (background_sprite != NULL)
+		delete background_sprite;
 	if(map != NULL)
 		delete map;
 	if (player != NULL)
@@ -25,33 +24,31 @@ Scene::~Scene()
 		delete player;
 }
 
-void Scene::initSpecial() {
-	initShaders();
-	menu.loadFromFile("images/background.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	s = Sprite::createSprite(glm::ivec2(SCREEN_WIDTH, SCREEN_HEIGHT), glm::vec2(1.0, 1.0), &menu, &texProgram);
-}
-
 void Scene::init()
 {
-
-	
-
+	//Shaders
 	initShaders();
-	map = TileMap::createTileMap("levels/customlevel.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
-	player = new Player();
-	inverted_player = new Player();
 
+	// Background
+	background.loadFromFile("images/background.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	background_sprite = Sprite::createSprite(glm::ivec2(SCREEN_WIDTH, SCREEN_HEIGHT), glm::vec2(1.0, 1.0), &background, &texProgram);
+	
+	// Map
+	map = TileMap::createTileMap("levels/customlevel.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+	
+	// Upright Player
+	player = new Player();
 	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram, false);
 	player->setPosition(glm::vec2(map->getStartingX(UPRIGHT_PLAYER) * map->getTileSize(), map->getStartingY(UPRIGHT_PLAYER) * map->getTileSize()));
 	player->setTileMap(map);
 
+	// Inverted Player
+	inverted_player = new Player();
 	inverted_player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram, true);
 	inverted_player->setPosition(glm::vec2(map->getStartingX(INVERTED_PLAYER) * map->getTileSize(), map->getStartingY(INVERTED_PLAYER) * map->getTileSize()));
 	inverted_player->setTileMap(map);
 
 	initSprites();
-
-
 
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
@@ -74,7 +71,7 @@ void Scene::render()
 	modelview = glm::mat4(1.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
-	s->render();
+	background_sprite->render();
 	map->render();
 	player->render();
 	inverted_player->render();

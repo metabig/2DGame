@@ -26,7 +26,6 @@ public:
 	Scene();
 	~Scene();
 
-	void initSpecial();
 	void init();
 	void update(int deltaTime);
 	void render();
@@ -44,9 +43,9 @@ private:
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;
-	Sprite* s;
+	Sprite* background_sprite;
 
-	Texture menu;
+	Texture background;
 
 	vector<Enviorment *> vecSprites;
 
