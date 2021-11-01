@@ -6,8 +6,8 @@
 #include "SplashScene.h"
 #include "LevelScene.h"
 
-#define SCREEN_WIDTH 30*64
-#define SCREEN_HEIGHT 14*64
+#define SCREEN_WIDTH 30*64 //1920
+#define SCREEN_HEIGHT 14*64 //896
 
 
 // Game is a singleton (a class with a single instance) that represents our whole application

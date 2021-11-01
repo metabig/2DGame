@@ -7,7 +7,6 @@ class SplashScene: public Scene {
 	public:
 		void init();
 		void render();
-		void initShaders();
 		Sprite* background_sprite;
 		Texture background;
 
