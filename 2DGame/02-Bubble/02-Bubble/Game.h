@@ -46,7 +46,8 @@ public:
 private:
 	bool bPlay;                       // Continue to play game?
 	LevelScene levelscene;                      // Scene to render
-	SplashScene splashscreen;				  // Splash Screen
+	SplashScene splashscene;				  // Splash Screen
+	bool isLevelscene = false;
 	bool keys[256], specialKeys[256]; // Store key states so that 
 	                                  // we can have access at any time
 

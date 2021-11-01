@@ -7,28 +7,38 @@ void Game::init()
 {
 	bPlay = true;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-	splashscreen.init();
-	//levelscene.initialize();
+	splashscene.init();
+	levelscene.init();
 }
 
 bool Game::update(int deltaTime)
 {
-	//levelscene.update(deltaTime);
-	splashscreen.update(deltaTime);
+	if (isLevelscene) {
+		levelscene.update(deltaTime);
+	}
+	else {
+		splashscene.update(deltaTime);
+	}
 	return bPlay;
 }
 
 void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//levelscene.render();
-	splashscreen.render();
+	if (isLevelscene) {
+		levelscene.render();
+	}
+	else {
+		splashscene.render();
+	}
 }
 
 void Game::keyPressed(int key)
 {
-	if(key == 27) // Escape code
+	if (key == 27) // Escape code
 		bPlay = false;
+	else if (key == 112)
+		isLevelscene = true;
 	keys[key] = true;
 }
 

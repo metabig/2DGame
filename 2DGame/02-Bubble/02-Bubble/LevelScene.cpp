@@ -3,7 +3,7 @@
 #include "Game.h"
 #include<iostream>
 
-void LevelScene::initialize()
+void LevelScene::init()
 {
 	Scene::initShaders();
 	cout << "LevelScene::init()" << endl;
@@ -27,7 +27,7 @@ void LevelScene::initialize()
 	inverted_player->setTileMap(map);
 
 	initSprites();
-	init();
+	Scene::init();
 }
 
 void LevelScene::update(int deltaTime)

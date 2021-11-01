@@ -6,7 +6,7 @@
 
 class LevelScene : public Scene {
 public:
-	void initialize();
+	void init();
 	void update(int deltaTime);
 	void render();
 	void initSprites();
