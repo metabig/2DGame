@@ -13,9 +13,6 @@ void Game::init()
 
 bool Game::update(int deltaTime)
 {
-	if (changeLevel) {
-		levelscene.init(currentLevel);
-	}
 	if (isLevelscene) {
 		levelscene.update(deltaTime);
 	}
