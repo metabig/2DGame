@@ -6,14 +6,15 @@
 void LevelScene::init(int levelToPlay)
 {
 	Scene::initShaders();
-	
+
 	// Background
-	
+
 	background.loadFromFile("images/background.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	background_sprite = Sprite::createSprite(glm::ivec2(SCREEN_WIDTH, SCREEN_HEIGHT), glm::vec2(1.0, 1.0), &background, &texProgram);
 
 	// Map
 	string fileLevel = "levels/Level" + std::to_string(levelToPlay)+".txt";
+	vecSprites.clear();
 	cout << "LevelScene::init() " << fileLevel << endl;
 	map = TileMap::createTileMap(fileLevel, glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
 
