@@ -1,0 +1,7 @@
+﻿  TileMap.cpp
+SOIL.lib(image_DXT.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'SOIL.lib(image_DXT.obj)' or at 'C:\Users\Usuario\Documents\VJ\ExOpenGL3_2DGame\2DGame\01-TBE\Debug\vc100.pdb'; linking object as if no debug info
+SOIL.lib(image_helper.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'SOIL.lib(image_helper.obj)' or at 'C:\Users\Usuario\Documents\VJ\ExOpenGL3_2DGame\2DGame\01-TBE\Debug\vc100.pdb'; linking object as if no debug info
+SOIL.lib(SOIL.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'SOIL.lib(SOIL.obj)' or at 'C:\Users\Usuario\Documents\VJ\ExOpenGL3_2DGame\2DGame\01-TBE\Debug\vc100.pdb'; linking object as if no debug info
+SOIL.lib(stb_image_aug.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'SOIL.lib(stb_image_aug.obj)' or at 'C:\Users\Usuario\Documents\VJ\ExOpenGL3_2DGame\2DGame\01-TBE\Debug\vc100.pdb'; linking object as if no debug info
+  01-TBE.vcxproj -> C:\Users\Usuario\Documents\VJ\ExOpenGL3_2DGame\2DGame\01-TBE\Debug\01-TBE.exe
+  01-TBE.vcxproj -> C:\Users\Usuario\Documents\VJ\ExOpenGL3_2DGame\2DGame\01-TBE\Debug\01-TBE.pdb (Full PDB)
