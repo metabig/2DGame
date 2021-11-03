@@ -8,11 +8,15 @@ void Game::init()
 	bPlay = true;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	splashscene.init();
-	levelscene.init();
+	currentLevel = 1;
+	levelscene.init(currentLevel);
 }
 
 bool Game::update(int deltaTime)
 {
+	if (changeLevel) {
+		levelscene.init(currentLevel);
+	}
 	if (isLevelscene) {
 		levelscene.update(deltaTime);
 	}
@@ -35,10 +39,16 @@ void Game::render()
 
 void Game::keyPressed(int key)
 {
-	if (key == 27) // Escape code
-		bPlay = false;
-	else if (key == 112)
-		isLevelscene = true;
+	switch (key) {
+	case 27:
+		bPlay = false; break;
+	case 112:
+		isLevelscene = true; break;
+	case 115:
+		currentLevel++;
+		changeLevel = true; break;
+
+	}
 	keys[key] = true;
 }
 
