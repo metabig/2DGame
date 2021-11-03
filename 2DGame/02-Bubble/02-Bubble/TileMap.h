@@ -34,7 +34,7 @@ public:
 
 	void render() const;
 	void free();
-	
+
 	int getTileSize() const { return tileSize; }
 
 	bool collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) const;
@@ -42,7 +42,7 @@ public:
 	bool collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size, int *posY) const;
 	bool collisionMoveUp(const glm::ivec2 &pos, const glm::ivec2 &size, int *posY) const;
 
-	
+
 
 	int getStartingX(bool inverted);
 	int getStartingY(bool inverted);
@@ -54,7 +54,7 @@ private:
 	void prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program);
 
 	void setSpritePosition(int X, int Y, int SpriteType);
-	
+	bool checkSpriteCollision(int x, int y) const;
 
 private:
 	GLuint vao;
@@ -66,6 +66,8 @@ private:
 	glm::vec2 tileTexSize;
 	int *map;
 
+	int action = 0;
+
 	int startingX, startingY;
 	int startingX_inv, startingY_inv;
 
@@ -75,5 +77,4 @@ private:
 
 
 #endif // _TILE_MAP_INCLUDE
-
 
