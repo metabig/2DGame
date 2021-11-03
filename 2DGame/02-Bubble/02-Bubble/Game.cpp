@@ -15,7 +15,9 @@ void Game::init()
 bool Game::update(int deltaTime)
 {
 	if (changeLevel) {
+		if (currentLevel > maxLevel) currentLevel = 1;//Loop to first level
 		levelscene.init(currentLevel);
+		changeLevel = false;
 	}
 	if (isLevelscene) {
 		levelscene.update(deltaTime);
