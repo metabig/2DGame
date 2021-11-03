@@ -12,8 +12,8 @@
 // Scene contains all the entities of our game.
 // It is responsible for updating and render them.
 
-#define SCREEN_X 25
-#define SCREEN_Y 20
+#define SCREEN_X 30
+#define SCREEN_Y 14
 
 
 #define INVERTED_PLAYER true
@@ -35,7 +35,7 @@ public:
 	void initSprites();
 private:
 
-
+	
 
 private:
 

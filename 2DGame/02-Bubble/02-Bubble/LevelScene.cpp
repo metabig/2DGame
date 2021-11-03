@@ -3,19 +3,16 @@
 #include "Game.h"
 #include<iostream>
 
-void LevelScene::init(int levelToPlay)
+void LevelScene::init()
 {
 	Scene::initShaders();
-	
+	cout << "LevelScene::init()" << endl;
 	// Background
-	
 	background.loadFromFile("images/background.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	background_sprite = Sprite::createSprite(glm::ivec2(SCREEN_WIDTH, SCREEN_HEIGHT), glm::vec2(1.0, 1.0), &background, &texProgram);
 
 	// Map
-	string fileLevel = "levels/Level" + std::to_string(levelToPlay)+".txt";
-	cout << "LevelScene::init() " << fileLevel << endl;
-	map = TileMap::createTileMap(fileLevel, glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+	map = TileMap::createTileMap("levels/customlevel.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
 
 	// Upright Player
 	player = new Player();
