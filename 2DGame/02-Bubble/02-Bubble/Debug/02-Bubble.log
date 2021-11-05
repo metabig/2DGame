@@ -1,20 +1,8 @@
-﻿  TileMap.cpp
-c:\users\usuario\documents\github\2dgame\2dgame\02-bubble\02-bubble\tilemap.cpp(266): warning C4018: '<': signed/unsigned mismatch
-  Sprite.cpp
+﻿cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
   LevelScene.cpp
-  Game.cpp
-  Enviorment.cpp
-c:\users\usuario\documents\github\2dgame\2dgame\02-bubble\02-bubble\enviorment.cpp(101): warning C4305: 'argument': truncation from 'double' to 'float'
-  Generating Code...
-  Compiling...
-  main.cpp
-  SplashScene.cpp
-  Scene.cpp
-  Player.cpp
-c:\users\usuario\documents\github\2dgame\2dgame\02-bubble\02-bubble\player.cpp(16): warning C4005: 'SPRITE_X_RATIO': macro redefinition
-  c:\users\usuario\documents\github\2dgame\2dgame\02-bubble\02-bubble\splashscene.h(6): note: see previous definition of 'SPRITE_X_RATIO'
-c:\users\usuario\documents\github\2dgame\2dgame\02-bubble\02-bubble\player.cpp(17): warning C4005: 'SPRITE_Y_RATIO': macro redefinition
-  c:\users\usuario\documents\github\2dgame\2dgame\02-bubble\02-bubble\splashscene.h(7): note: see previous definition of 'SPRITE_Y_RATIO'
-  Generating Code...
+c:\users\usuario\documents\github\2dgame\2dgame\02-bubble\02-bubble\levelscene.cpp(35): warning C4018: '<': signed/unsigned mismatch
+c:\users\usuario\documents\github\2dgame\2dgame\02-bubble\02-bubble\levelscene.cpp(180): warning C4018: '<': signed/unsigned mismatch
+c:\users\usuario\documents\github\2dgame\2dgame\02-bubble\02-bubble\levelscene.cpp(246): warning C4018: '<': signed/unsigned mismatch
+c:\users\usuario\documents\github\2dgame\2dgame\02-bubble\02-bubble\levelscene.cpp(254): warning C4018: '<': signed/unsigned mismatch
   02-Bubble.vcxproj -> C:\Users\Usuario\Documents\GitHub\2DGame\2DGame\02-Bubble\Debug\02-Bubble.exe
   02-Bubble.vcxproj -> C:\Users\Usuario\Documents\GitHub\2DGame\2DGame\02-Bubble\Debug\02-Bubble.pdb (Full PDB)

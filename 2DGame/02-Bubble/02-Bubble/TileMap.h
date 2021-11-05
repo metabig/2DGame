@@ -47,20 +47,22 @@ public:
 	int getStartingX(bool inverted);
 	int getStartingY(bool inverted);
 
-	vector<int> getSpriteInfo();
+	vector<glm::ivec3> getSpriteInfo();
+	glm::ivec2 mapSize;
 private:
 	void setStartPosition(int X, int Y, bool inverted);
 	bool loadLevel(const string &levelFile);
 	void prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program);
 
 	void setSpritePosition(int X, int Y, int SpriteType);
-	bool checkSpriteCollision(int x, int y) const;
+	vector<glm::ivec3> spriteinfo;
+
 
 private:
 	GLuint vao;
 	GLuint vbo;
 	GLint posLocation, texCoordLocation;
-	glm::ivec2 position, mapSize, tilesheetSize;
+	glm::ivec2 position, tilesheetSize;
 	int tileSize, blockSize;
 	Texture tilesheet;
 	glm::vec2 tileTexSize;
@@ -71,7 +73,6 @@ private:
 	int startingX, startingY;
 	int startingX_inv, startingY_inv;
 
-	vector<int> spriteinfo;
 
 };
 

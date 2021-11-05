@@ -4,10 +4,11 @@
 #include <GL/glut.h>
 #include "Player.h"
 #include "Game.h"
+#include "Scene.h"
 
 
 #define JUMP_ANGLE_STEP 4
-#define JUMP_HEIGHT 96
+#define JUMP_HEIGHT 150 //96
 #define FALL_STEP 4
 
 #define SPRITE_PLAYER_WIDTH 64
@@ -104,7 +105,7 @@ void Player::update(int deltaTime)
 			}
 			else
 			{
-				posPlayer.y = int(startY - 96 * sin(3.14159f * jumpAngle / 180.f));
+				posPlayer.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
 				if (jumpAngle < -90)
 					bJumping = !map->collisionMoveUp(posPlayer, glm::ivec2(SPRITE_PLAYER_WIDTH, SPRITE_PLAYER_HEIGHT), &posPlayer.y);
 			}
@@ -119,7 +120,7 @@ void Player::update(int deltaTime)
 			}
 			else
 			{
-				posPlayer.y = int(startY - 96 * sin(3.14159f * jumpAngle / 180.f));
+				posPlayer.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
 				if (jumpAngle > 90) 
 					bJumping = !map->collisionMoveDown(posPlayer, glm::ivec2(SPRITE_PLAYER_WIDTH, SPRITE_PLAYER_HEIGHT), &posPlayer.y);
 			}
@@ -177,6 +178,9 @@ void Player::setPosition(const glm::vec2 &pos)
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 }
 
+glm::ivec2 Player::getPosition() {
+	return posPlayer;
+}
 
 
 

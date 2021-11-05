@@ -20,7 +20,12 @@ bool Game::update(int deltaTime)
 		changeLevel = false;
 	}
 	if (isLevelscene) {
-		levelscene.update(deltaTime);
+		changeLevel = levelscene.update(deltaTime);
+		if (changeLevel) ++currentLevel;
+		if (currentLevel > maxLevel) {
+			isLevelscene = false;
+			splashscene.setCreditsScreen();
+		}
 	}
 	else {
 		splashscene.update(deltaTime);

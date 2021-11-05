@@ -47,3 +47,7 @@ void SplashScene::update(int deltaTime)
 		background_sprite->changeAnimation(CREDITS_SCREEN);
 	}
 }
+
+void SplashScene::setCreditsScreen() {
+	background_sprite->changeAnimation(CREDITS_SCREEN);
+}

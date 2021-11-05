@@ -15,6 +15,7 @@ class SplashScene: public Scene {
 		void init();
 		void render();
 		void update(int deltaTime);
+		void setCreditsScreen();
 		Sprite* background_sprite;
 		Texture background;
 

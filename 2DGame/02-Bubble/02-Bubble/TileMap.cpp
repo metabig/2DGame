@@ -153,19 +153,16 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 void TileMap::setSpritePosition(int X, int Y, int SpriteType)
 {
 	switch (SpriteType) {
-	case SPRITE_MAINPLAYER:
-		setStartPosition(X, Y, false);
-		break;
-	case SPRITE_INVERTEDPLAYER:
-		setStartPosition(X, Y, true);
-		break;
+		case SPRITE_MAINPLAYER:
+			setStartPosition(X, Y, false);
+			break;
+		case SPRITE_INVERTEDPLAYER:
+			setStartPosition(X, Y, true);
+			break;
 
-	default:
-		spriteinfo.push_back(X);
-		spriteinfo.push_back(Y);
-		spriteinfo.push_back(SpriteType);
-
-
+		default:
+			glm::ivec3 sprite_tile = glm::ivec3(X, Y, SpriteType);
+			spriteinfo.push_back(sprite_tile);
 	}
 
 
@@ -185,7 +182,7 @@ bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) c
 	y1 = (pos.y + size.y - 1) / tileSize;
 	for (int y = y0; y <= y1; y++)
 	{
-		if (map[y*mapSize.x + x] != 0 || checkSpriteCollision(x, y))
+		if (map[y*mapSize.x + x] != 0)
 			return true;
 
 
@@ -203,7 +200,7 @@ bool TileMap::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) 
 	y1 = (pos.y + size.y - 1) / tileSize;
 	for (int y = y0; y <= y1; y++)
 	{
-		if (map[y*mapSize.x + x] != 0 || checkSpriteCollision(x, y))
+		if (map[y*mapSize.x + x] != 0)
 			return true;
 	}
 
@@ -225,7 +222,7 @@ bool TileMap::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size, i
 	y = (pos.y + size.y - 1) / tileSize; // y
 	for (int x = x0; x <= x1; x++)
 	{
-		if (map[y*mapSize.x + x] != 0 || checkSpriteCollision(x, y))
+		if (map[y*mapSize.x + x] != 0)
 		{
 			if (*posY - tileSize * y + size.y <= 4)
 			{
@@ -247,7 +244,7 @@ bool TileMap::collisionMoveUp(const glm::ivec2 &pos, const glm::ivec2 &size, int
 	y = (pos.y) / tileSize;
 	for (int x = x0; x <= x1; x++)
 	{
-		if (map[y*mapSize.x + x] != 0 || checkSpriteCollision(x, y))
+		if (map[y*mapSize.x + x] != 0)
 		{
 			if (tileSize*(y + 1) - *posY <= 4)
 			{
@@ -257,16 +254,6 @@ bool TileMap::collisionMoveUp(const glm::ivec2 &pos, const glm::ivec2 &size, int
 		}
 
 	}
-
-	return false;
-}
-
-bool TileMap::checkSpriteCollision(int x, int y) const
-{
-	for (int i = 0; i < spriteinfo.size(); i = i + 3)
-		if (spriteinfo[i] == x && spriteinfo[i + 1] == y) {
-			return true;
-		}
 
 	return false;
 }
@@ -304,7 +291,7 @@ int TileMap::getStartingY(bool inverted)
 	}
 }
 
-vector<int> TileMap::getSpriteInfo()
+vector<glm::ivec3> TileMap::getSpriteInfo()
 {
 	return spriteinfo;
 }

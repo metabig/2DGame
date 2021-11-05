@@ -1,4 +1,5 @@
 #include "Enviorment.h"
+#include "Scene.h"
 #include <iostream>
 
 
@@ -22,7 +23,7 @@ void Enviorment::init(const glm::ivec2 & tileMapPos, ShaderProgram & shaderProgr
 	setAnimation(NORMAL, (int)paramAnim[FRAMES_PER_SECOND]);//PlayerAnims
 	sprite->changeAnimation(0);
 	position = tileMapPos;
-	sprite->setPosition(glm::vec2(float(position.x), float(position.y)));
+	sprite->setPosition(glm::vec2(float(position.x + SCREEN_X), float(position.y + SCREEN_Y)));
 }
 
 void Enviorment::action()
