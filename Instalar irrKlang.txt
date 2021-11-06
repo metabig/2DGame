@@ -1,0 +1,20 @@
+Linkar librerias
+--bajarse irrKlang library 32 bits
+
+https://www.ambiera.com/irrklang/downloads.html
+
+Descomprimir el zip en la carpeta de librerias
+
+Despues ir a
+Project -> Properties -> C/C++
+  en el apartado Additional include directories
+  añadir:
+  ..\..\..\libs\irrKlang-32bit-1.6.0\irrKlang-1.6.0\include
+
+Despues ir
+Project -> Properties -> Linker
+    en el apartado Additional Libraries directories
+    añadir:
+..\..\..\libs\irrKlang-32bit-1.6.0\irrKlang-1.6.0\lib\Win32-visualStudio
+
+Recoradar que ha de haber el irrKlang.dll donde esta el codigo nuestro
