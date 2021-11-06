@@ -2,6 +2,7 @@
 #include <GL/gl.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Sprite.h"
+#include<iostream>
 
 
 Sprite *Sprite::createSprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Texture *spritesheet, ShaderProgram *program)
@@ -43,6 +44,22 @@ void Sprite::update(int deltaTime)
 		{
 			timeAnimation -= animations[currentAnimation].millisecsPerKeyframe;
 			currentKeyframe = (currentKeyframe + 1) % animations[currentAnimation].keyframeDispl.size();
+		}
+		texCoordDispl = animations[currentAnimation].keyframeDispl[currentKeyframe];
+	}
+}
+
+void Sprite::updateOneWay(int deltaTime)
+{
+	if (currentAnimation > 0)
+	{
+		timeAnimation += deltaTime;
+		while (timeAnimation > animations[currentAnimation].millisecsPerKeyframe)
+		{
+			timeAnimation -= animations[currentAnimation].millisecsPerKeyframe;
+			currentKeyframe = (currentKeyframe + 1);
+			if (currentKeyframe >= animations[currentAnimation].keyframeDispl.size())
+				currentKeyframe -= 1;
 		}
 		texCoordDispl = animations[currentAnimation].keyframeDispl[currentKeyframe];
 	}
@@ -106,5 +123,8 @@ void Sprite::setPosition(const glm::vec2 &pos)
 	position = pos;
 }
 
-
+glm::vec2 Sprite::getPosition()
+{
+	return position;
+}
 

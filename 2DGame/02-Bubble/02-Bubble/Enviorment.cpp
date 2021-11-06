@@ -1,4 +1,5 @@
 #include "Enviorment.h"
+#include "Scene.h"
 #include <iostream>
 
 
@@ -22,7 +23,7 @@ void Enviorment::init(const glm::ivec2 & tileMapPos, ShaderProgram & shaderProgr
 	setAnimation(NORMAL, (int)paramAnim[FRAMES_PER_SECOND]);//PlayerAnims
 	sprite->changeAnimation(0);
 	position = tileMapPos;
-	sprite->setPosition(glm::vec2(float(position.x), float(position.y)));
+	sprite->setPosition(glm::vec2(float(position.x + SCREEN_X), float(position.y + SCREEN_Y)));
 }
 
 void Enviorment::action()
@@ -98,7 +99,7 @@ vector<float> Enviorment::getParametersAnimation()
 	case SPRITE_LEVER:
 	case SPRITE_INVERTEDLEVER:
 		param.push_back(FRAME_LEVER);
-		param.push_back(1.0 / FRAME_LEVER);
+		param.push_back(1.0f / FRAME_LEVER);
 		param.push_back(1.0);
 		param.push_back(FRAME_LEVER); break;
 
@@ -106,8 +107,8 @@ vector<float> Enviorment::getParametersAnimation()
 	case SPRITE_INVERTEDBANDERA:
 		param.push_back(FRAME_BANDERA);
 		param.push_back(1.0 / FRAME_BANDERA);
-		param.push_back(1.0 );
-		param.push_back(FRAME_BANDERA);break;
+		param.push_back(1.0);
+		param.push_back(FRAME_BANDERA); break;
 
 	default:
 		param.push_back(1.0);

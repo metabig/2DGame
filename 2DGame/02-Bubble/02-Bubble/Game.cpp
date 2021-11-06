@@ -9,18 +9,30 @@ void Game::init()
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	splashscene.init();
 	currentLevel = 1;
+	maxLevel = 5;
+	mainSoundSystem = new Sound();
+	mainSoundSystem->playMusic();
 	levelscene.init(currentLevel);
+	levelscene.setUpSound(mainSoundSystem);
+	levelscene.playerSoundSystem();
 }
 
 bool Game::update(int deltaTime)
 {
+	mainSoundSystem->update(deltaTime);
 	if (changeLevel) {
 		if (currentLevel > maxLevel) currentLevel = 1;//Loop to first level
 		levelscene.init(currentLevel);
+		levelscene.playerSoundSystem();
 		changeLevel = false;
 	}
 	if (isLevelscene) {
-		levelscene.update(deltaTime);
+		changeLevel = levelscene.update(deltaTime);
+		if (changeLevel) ++currentLevel;
+		if (currentLevel > maxLevel) {
+			isLevelscene = false;
+			splashscene.setCreditsScreen();
+		}
 	}
 	else {
 		splashscene.update(deltaTime);
@@ -42,12 +54,27 @@ void Game::render()
 void Game::keyPressed(int key)
 {
 	switch (key) {
-	case 27:
+	case 27://esc
 		bPlay = false; break;
-	case 112:
+	case 112://p
 		isLevelscene = true; break;
-	case 115:
+	case 115://s
 		currentLevel++;
+		changeLevel = true; break;
+	case 49://1
+		currentLevel=1;
+		changeLevel = true; break;
+	case 50://2
+		currentLevel=2;
+		changeLevel = true; break;
+	case 51://3
+		currentLevel=3;
+		changeLevel = true; break;
+	case 52://4
+		currentLevel=4;
+		changeLevel = true; break;
+	case 53://5
+		currentLevel=5;
 		changeLevel = true; break;
 
 	}
@@ -90,7 +117,6 @@ bool Game::getSpecialKey(int key) const
 {
 	return specialKeys[key];
 }
-
 
 
 

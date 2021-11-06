@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "SplashScene.h"
 #include "LevelScene.h"
+#include "Sound.h"
 
 #define SCREEN_WIDTH 25*64 //1920
 #define SCREEN_HEIGHT 20*64 //896
@@ -53,11 +54,12 @@ private:
 	bool keys[256], specialKeys[256]; // Store key states so that 
 									  // we can have access at any time
 	int currentLevel;
-	int maxLevel = 3;
+	int maxLevel;
+
+	Sound* mainSoundSystem;
 
 };
 
 
 #endif // _GAME_INCLUDE
-
 

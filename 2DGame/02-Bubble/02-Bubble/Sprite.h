@@ -23,6 +23,7 @@ public:
 	Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Texture *spritesheet, ShaderProgram *program);
 
 	void update(int deltaTime);
+	void updateOneWay(int deltaTime);
 	void render() const;
 	void free();
 
@@ -31,8 +32,10 @@ public:
 	void addKeyframe(int animId, const glm::vec2 &frame);
 	void changeAnimation(int animId);
 	int animation() const;
-
+	
 	void setPosition(const glm::vec2 &pos);
+
+	glm::vec2 getPosition();
 
 private:
 	Texture *texture;

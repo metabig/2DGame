@@ -21,6 +21,15 @@
 #define SPRITE_BANDERA -7
 #define SPRITE_INVERTEDBANDERA -8
 
+#define SPRITE_BARRIL -9
+#define SPRITE_INVERTEDBARRIL -10
+#define SPRITE_CAIXA -11
+#define SPRITE_INVERTEDCAIXA -12
+
+#define SPRITE_POWERUP -13
+#define SPRITE_INVERTEDPOWERUP -14
+
+
 
 class TileMap
 {
@@ -41,41 +50,52 @@ public:
 	bool collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) const;
 	bool collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size, int *posY) const;
 	bool collisionMoveUp(const glm::ivec2 &pos, const glm::ivec2 &size, int *posY) const;
-	
+	void setPositionCaixa(int x, int y);
+	bool collisionBox(int d);
 
-
+	glm::ivec2 resetPositionCaixa();
 	int getStartingX(bool inverted);
 	int getStartingY(bool inverted);
 
-	vector<int> getSpriteInfo();
+	vector<glm::ivec3> getSpriteInfo() const;
+	glm::ivec2 mapSize;
+
+	void setBarrelCollision(bool col);
 private:
 	void setStartPosition(int X, int Y, bool inverted);
 	bool loadLevel(const string &levelFile);
 	void prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program);
 
 	void setSpritePosition(int X, int Y, int SpriteType);
-	bool checkSpriteCollision(int x, int y) const;
+	vector<glm::ivec3> spriteinfo;
+
+	bool collisonSprite(int X, int Y) const;
+	bool collisionBoxPlayer(glm::ivec2 posP, int d) const;
+	bool betweenTwoRanges(int n, int upper, int lower) const;
 
 private:
 	GLuint vao;
 	GLuint vbo;
 	GLint posLocation, texCoordLocation;
-	glm::ivec2 position, mapSize, tilesheetSize;
+	glm::ivec2 position, tilesheetSize;
 	int tileSize, blockSize;
 	Texture tilesheet;
 	glm::vec2 tileTexSize;
 	int *map;
 
 	int action = 0;
-	
+
 	int startingX, startingY;
 	int startingX_inv, startingY_inv;
 
-	vector<int> spriteinfo;
+	glm::ivec2 positionCaixa;
+	glm::ivec2 initialPositionCaixa;
+
+	bool barrelCollision;
+
 
 };
 
 
 #endif // _TILE_MAP_INCLUDE
-
 

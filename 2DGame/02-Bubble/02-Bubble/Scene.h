@@ -35,7 +35,7 @@ public:
 	void initSprites();
 private:
 
-
+	
 
 private:
 

@@ -48,6 +48,7 @@ void TileMap::free()
 
 bool TileMap::loadLevel(const string &levelFile)
 {
+	barrelCollision = true;
 	ifstream fin;
 	string line, tilesheetFile;
 	stringstream sstream;
@@ -153,23 +154,75 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 void TileMap::setSpritePosition(int X, int Y, int SpriteType)
 {
 	switch (SpriteType) {
-	case SPRITE_MAINPLAYER:
-		setStartPosition(X, Y, false);
-		break;
-	case SPRITE_INVERTEDPLAYER:
-		setStartPosition(X, Y, true);
-		break;
+		case SPRITE_MAINPLAYER:
+			setStartPosition(X, Y, false);
+			break;
+		case SPRITE_INVERTEDPLAYER:
+			setStartPosition(X, Y, true);
+			break;
 
-	default:
-		spriteinfo.push_back(X);
-		spriteinfo.push_back(Y);
-		spriteinfo.push_back(SpriteType);
+		case SPRITE_CAIXA:
 
-
+			initialPositionCaixa= glm::ivec2(64 * X+25 , 64 * Y+20);
+			setPositionCaixa(64 *X+25, 64 * Y+20);
+		default:
+			glm::ivec3 sprite_tile = glm::ivec3(X, Y, SpriteType);
+			spriteinfo.push_back(sprite_tile);
 	}
 
 
 }
+
+bool TileMap::collisonSprite(int x, int y) const
+{
+	if (!barrelCollision) return false;
+	vector<glm::ivec3> spriteinfo = getSpriteInfo();
+	for (size_t i = 0; i < spriteinfo.size(); i++)
+	{
+		if (spriteinfo[i].x == x&&spriteinfo[i].y == y) {
+			if (spriteinfo[i].z == SPRITE_BARRIL) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool TileMap::betweenTwoRanges(int n, int upper, int lower) const
+{
+	if(n >= lower && n <= upper)
+		return true;
+	return false;
+}
+
+bool TileMap::collisionBoxPlayer(glm::ivec2 posP, int d) const
+{
+	
+	if (posP.y > 608) return false;//inverted
+	glm::ivec2 pA = positionCaixa;
+	int difX = posP.x - pA.x;
+	int difY = posP.y - pA.y;
+	if (betweenTwoRanges(difY, -60, -80))
+		if (betweenTwoRanges(difX, 37, -80))
+			return true;
+	
+	return false;
+	//return betweenTwoRanges(difX, -90, 37) && betweenTwoRanges(difY, -60, -80);
+}
+
+bool TileMap::collisionBox(int d) 
+{
+	int ofset = 20;
+	if(d == -1) ofset = 32;
+	int x = (positionCaixa.x - d*ofset) / tileSize+d;
+	int y = positionCaixa.y / tileSize;
+	return map[y*mapSize.x + x] != 0;
+	
+}
+
+
+
+
 
 
 // Collision tests for axis aligned bounding boxes.
@@ -178,6 +231,7 @@ void TileMap::setSpritePosition(int X, int Y, int SpriteType)
 
 bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) const
 {
+
 	int x, y0, y1;
 
 	x = pos.x / tileSize;
@@ -185,25 +239,25 @@ bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) c
 	y1 = (pos.y + size.y - 1) / tileSize;
 	for (int y = y0; y <= y1; y++)
 	{
-		if (map[y*mapSize.x + x] != 0 || checkSpriteCollision(x, y))
+		if (map[y*mapSize.x + x] != 0 || collisonSprite(x, y))
 			return true;
 
-		
+
 	}
-	
+
 	return false;
 }
 
 bool TileMap::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) const
 {
+	if (collisionBoxPlayer(pos, 1)) return true;
 	int x, y0, y1;
-
 	x = (pos.x + size.x - 1) / tileSize;
 	y0 = pos.y / tileSize;
 	y1 = (pos.y + size.y - 1) / tileSize;
 	for (int y = y0; y <= y1; y++)
 	{
-		if (map[y*mapSize.x + x] != 0 || checkSpriteCollision(x,y))
+		if (map[y*mapSize.x + x] != 0 || collisonSprite(x,y))
 			return true;
 	}
 
@@ -219,13 +273,18 @@ bool TileMap::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) 
 bool TileMap::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size, int *posY) const
 {
 	int x0, x1, y;
-
+	
 	x0 = pos.x / tileSize; // x inicial
 	x1 = (pos.x + size.x - 1) / tileSize; // x final
 	y = (pos.y + size.y - 1) / tileSize; // y
+
+	if (collisionBoxPlayer(pos, 0)) {
+		*posY = tileSize * y - size.y;
+		return true;
+	}
 	for (int x = x0; x <= x1; x++)
 	{
-		if (map[y*mapSize.x + x] != 0 || checkSpriteCollision(x, y))
+		if (map[y*mapSize.x + x] != 0 || collisonSprite(x, y))
 		{
 			if (*posY - tileSize * y + size.y <= 4)
 			{
@@ -247,7 +306,7 @@ bool TileMap::collisionMoveUp(const glm::ivec2 &pos, const glm::ivec2 &size, int
 	y = (pos.y) / tileSize;
 	for (int x = x0; x <= x1; x++)
 	{
-		if (map[y*mapSize.x + x] != 0 || checkSpriteCollision(x, y))
+		if (map[y*mapSize.x + x] != 0 || collisonSprite(x, y))
 		{
 			if (tileSize*(y + 1) - *posY <= 4)
 			{
@@ -255,20 +314,21 @@ bool TileMap::collisionMoveUp(const glm::ivec2 &pos, const glm::ivec2 &size, int
 				return true;
 			}
 		}
-		
+
 	}
 
 	return false;
 }
 
-bool TileMap::checkSpriteCollision(int x, int y) const
+void TileMap::setPositionCaixa(int x, int y)
 {
-	for (int i = 0; i < spriteinfo.size(); i = i + 3) 
-		if (spriteinfo[i] == x && spriteinfo[i + 1] == y) {
-			return true;
-		}	
-		
-	return false;
+	positionCaixa = glm::ivec2(x, y);
+}
+
+
+void TileMap::setBarrelCollision(bool col)
+{
+	barrelCollision = col;
 }
 
 void TileMap::setStartPosition(int X, int Y, bool inverted)
@@ -283,6 +343,13 @@ void TileMap::setStartPosition(int X, int Y, bool inverted)
 	}
 }
 
+
+glm::ivec2 TileMap::resetPositionCaixa()
+{
+	positionCaixa.x = initialPositionCaixa.x;
+	positionCaixa.y = initialPositionCaixa.y;
+	return positionCaixa;
+}
 
 int TileMap::getStartingX(bool inverted)
 {
@@ -304,11 +371,10 @@ int TileMap::getStartingY(bool inverted)
 	}
 }
 
-vector<int> TileMap::getSpriteInfo()
+vector<glm::ivec3> TileMap::getSpriteInfo() const
 {
 	return spriteinfo;
 }
-
 
 
 
